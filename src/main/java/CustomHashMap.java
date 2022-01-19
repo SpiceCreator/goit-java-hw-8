@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class CustomHashMap <K, V> {
@@ -6,11 +7,11 @@ public class CustomHashMap <K, V> {
     private int size = 0;
 
     private static class Node <K, V> {
-        K key;
+        int key;
         V value;
         Node<K, V> next;
         Node(K key, V value, Node<K, V> next) {
-            this.key = key;
+            this.key = Objects.hashCode(key);
             this.value = value;
             this.next = next;
         }
@@ -20,7 +21,7 @@ public class CustomHashMap <K, V> {
         Node<K, V> pointer = head;
         if (size != 0) {
             while (pointer.next != null) {
-                if (pointer.next.key.equals(key)) {
+                if (pointer.next.key == Objects.hashCode(key)) {
                     return;
                 }
                 pointer = pointer.next;
@@ -33,7 +34,7 @@ public class CustomHashMap <K, V> {
     public boolean remove(K key) {
         Node<K, V> pointer = head;
         while (pointer.next != null) {
-            if (pointer.next.key.equals(key)) {
+            if (pointer.next.key == Objects.hashCode(key)) {
                 pointer.next = pointer.next.next;
                 size--;
                 return true;
@@ -55,7 +56,7 @@ public class CustomHashMap <K, V> {
     public V get(K key) {
         Node<K, V> pointer = head;
         while (pointer.next != null) {
-            if (pointer.next.key.equals(key)) {
+            if (pointer.next.key == Objects.hashCode(key)) {
                 return pointer.next.value;
             }
             pointer = pointer.next;
@@ -68,9 +69,9 @@ public class CustomHashMap <K, V> {
         StringJoiner result = new StringJoiner(",");
         Node<K,V> pointer = head;
         while (pointer.next != null) {
-            result.add("{" + pointer.next.key.toString() + "," + pointer.next.value.toString() + "}");
+            result.add("{" + pointer.next.key + "," + pointer.next.value.toString() + "}");
             pointer = pointer.next;
         }
-        return "[" + result.toString() + "]";
+        return "[" + result + "]";
     }
 }
