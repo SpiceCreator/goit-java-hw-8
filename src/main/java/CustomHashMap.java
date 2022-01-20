@@ -17,18 +17,21 @@ public class CustomHashMap <K, V> {
         }
     }
 
-    public void put(K key, V value) {
+    public V put(K key, V value) {
         Node<K, V> pointer = head;
         if (size != 0) {
             while (pointer.next != null) {
                 if (pointer.next.key == Objects.hashCode(key)) {
-                    return;
+                    V previousValue = pointer.next.value;
+                    pointer.next.value = value;
+                    return previousValue;
                 }
                 pointer = pointer.next;
             }
         }
         pointer.next = new Node<>(key, value, null);
         size++;
+        return null;
     }
 
     public boolean remove(K key) {
@@ -67,11 +70,14 @@ public class CustomHashMap <K, V> {
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(",");
-        Node<K,V> pointer = head;
-        while (pointer.next != null) {
-            result.add("{" + pointer.next.key + "," + pointer.next.value.toString() + "}");
-            pointer = pointer.next;
+        if (head.next != null) {
+            Node<K, V> pointer = head;
+            while (pointer.next != null) {
+                result.add("{" + pointer.next.key + "," + pointer.next.value.toString() + "}");
+                pointer = pointer.next;
+            }
+            return "[" + result + "]";
         }
-        return "[" + result + "]";
+        return null;
     }
 }

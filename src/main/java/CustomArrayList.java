@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 public class CustomArrayList <E> {
     public Object[] array;
@@ -47,9 +48,9 @@ public class CustomArrayList <E> {
         return size;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
         try {
-            return array[index];
+            return (E) array[index];
         } catch (IndexOutOfBoundsException ex) {
             ex.printStackTrace();
             return null;

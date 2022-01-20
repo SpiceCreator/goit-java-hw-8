@@ -69,11 +69,14 @@ public class CustomLinkedList <E> {
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(",");
-        Node<E> pointer = head;
-        while (pointer.next.next != null) {
-            result.add(pointer.next.item.toString());
-            pointer = pointer.next;
+        if (head.next != null) {
+            Node<E> pointer = head;
+            while (pointer.next.next != null) {
+                result.add(pointer.next.item.toString());
+                pointer = pointer.next;
+            }
+            return "[" + result + "]";
         }
-        return "[" + result.toString() + "]";
+        return null;
     }
 }

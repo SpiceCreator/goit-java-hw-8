@@ -16,7 +16,7 @@ public class CustomStack <E> {
         }
     }
 
-    public <T extends E> void add(T t) {
+    public <T extends E> void push(T t) {
         if (size == 0) {
             Node<E> newNode = new Node<E>(head, t, tail);
             head.next = newNode;
@@ -69,11 +69,14 @@ public class CustomStack <E> {
     @Override
     public String toString() {
         StringJoiner result = new StringJoiner(",");
-        Node<E> pointer = head;
-        while (pointer.next.next != null) {
-            result.add(pointer.next.item.toString());
-            pointer = pointer.next;
+        if (head.next != null) {
+            Node<E> pointer = head;
+            while (pointer.next.next != null) {
+                result.add(pointer.next.item.toString());
+                pointer = pointer.next;
+            }
+            return "[" + result.toString() + "]";
         }
-        return "[" + result.toString() + "]";
+        return null;
     }
 }
