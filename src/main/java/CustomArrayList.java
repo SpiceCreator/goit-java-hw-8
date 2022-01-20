@@ -48,9 +48,9 @@ public class CustomArrayList <E> {
         return size;
     }
 
-    public <T extends E> T get(int index) {
+    public E get(int index) {
         try {
-            return (T) array[index];
+            return (E) array[index];
         } catch (IndexOutOfBoundsException ex) {
             ex.printStackTrace();
             return null;
